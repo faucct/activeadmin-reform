@@ -27,17 +27,10 @@ module ActiveAdmin
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-      def nested_form_class(assoc)
-        if object.is_a?(::Reform::Form) && (property = object.class.definitions[assoc.to_s]) &&
-           (nested_form = property[:nested]) < ::Reform::Form
-          nested_form
-        end
-      end
-
       def nested_object(assoc)
-        assoc_reflection = object.class.reflect_on_association assoc
-        if (nested_form = nested_form_class(assoc))
-          nested_form.new(assoc_reflection.klass.new).tap(&:prepopulate!)
+        assoc_reflection = object.class.reflect_on_association(assoc)
+        if object.is_a?(::Reform::Form)
+          object.public_send(assoc).new(assoc_reflection.klass.new).tap(&:prepopulate!)
         else
           assoc_reflection.klass.new
         end

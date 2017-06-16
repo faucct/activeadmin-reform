@@ -4,6 +4,7 @@ require File.expand_path 'spec/support/detect_rails_version', File.dirname(__FIL
 
 gemspec
 group :test do
+  gem 'jquery-ui-rails', '5.0.5'
   gem 'rails', detect_rails_version
   gem 'activeadmin', github: 'activeadmin', ref: 'ba285ea2fc23ade108ed582134cae8c641f910a4'
   gem 'sqlite3', '~> 1.3.11'
@@ -17,3 +18,5 @@ group :test do
 
   gem 'codeclimate-test-reporter', '~> 0.4.8', require: nil
 end
+
+gem 'disposable', github: 'faucct/disposable'
